@@ -24,7 +24,9 @@ void C1(int mex, int LIMIT){
     for (int a = 1; a < mex; a++){
         for (int b = 1; b <= a; b++){
             int n = a*a + b*b;
-            if (n <= LIMIT) dict[n].c1 = true;
+            if (!dict.count(n)){
+                if (n <= LIMIT) dict[n].c1 = true;
+            }
         }
     }
 } 
@@ -67,18 +69,22 @@ class PE229{
                 int bmex2 = sqrt(LIMIT/2);
                 int bmex3 = sqrt(LIMIT/3);
                 int bmex4 = sqrt(LIMIT/7);
-
+ 
                 thread t1(C1, mex, LIMIT);
+                t1.join();
                 thread t2(C2, mex, bmex2, LIMIT);
                 thread t3(C3, mex, bmex3, LIMIT);
                 thread t4(C4, mex, bmex4, LIMIT);
-                t1.join();
                 t2.join();
                 t3.join();
                 t4.join();
                 
                 //std::thread t1(std::bind(&Threaded_Class::init,this));
 
+//                C1(mex, LIMIT);
+//                C2(mex, bmex2, LIMIT);
+//                C3(mex, bmex3, LIMIT);
+//                C4(mex, bmex4, LIMIT);
                 //Count instances
                 int count = 0;
                 for (auto it = dict.begin(); it != dict.end(); it++){
