@@ -7,29 +7,15 @@ using namespace std;
 
 class PE229{
     private:
-        struct C{
-                    bool c1;
-                    bool c2;
-                    bool c3;
-                    bool c4;
-                    C(){
-                        c1 = false;
-                        c2 = false;
-                        c3 = false;
-                        c4 = false;
-                    }
-        };
 
-        map<int, C> dict;
+        map<int, bool> dict;
 
         void C1(int mex, int LIMIT){
             //Cond1
             for (int a = 1; a < mex; a++){
                 for (int b = 1; b <= a; b++){
                     int n = a*a + b*b;
-                    if (!dict.count(n)){
-                        if (n <= LIMIT) dict[n].c1 = true;
-                    }
+                    if (n <= LIMIT) dict[n].c1 = true;
                 }
             }
         } 
@@ -39,7 +25,8 @@ class PE229{
             for (int a = 1; a < mex; a++){
                 for (int b = 1; b < bmex2; b++){
                     int n = a*a + 2*b*b;
-                    if (n <= LIMIT) dict[n].c2 = true;
+                    
+                        if (n <= LIMIT) dict[n].c2 = true;
                 }
             }
         }
@@ -70,21 +57,21 @@ class PE229{
                 int bmex3 = sqrt(LIMIT/3);
                 int bmex4 = sqrt(LIMIT/7);
  
-                thread t1(&PE229::C1,this, mex, LIMIT);
-                t1.join();
-                thread t2(&PE229::C2, this, mex, bmex2, LIMIT);
-                thread t3(&PE229::C3, this, mex, bmex3, LIMIT);
-                thread t4(&PE229::C4, this, mex, bmex4, LIMIT);
-                t2.join();
-                t3.join();
-                t4.join();
+//                thread t1(&PE229::C1,this, mex, LIMIT);
+//                t1.join();
+//                thread t2(&PE229::C2, this, mex, bmex2, LIMIT);
+//                thread t3(&PE229::C3, this, mex, bmex3, LIMIT);
+//                thread t4(&PE229::C4, this, mex, bmex4, LIMIT);
+//                t2.join();
+//                t3.join();
+//                t4.join();
                 
                 //std::thread t1(std::bind(&Threaded_Class::init,this));
 
-//                C1(mex, LIMIT);
-//                C2(mex, bmex2, LIMIT);
-//                C3(mex, bmex3, LIMIT);
-//                C4(mex, bmex4, LIMIT);
+                C1(mex, LIMIT);
+                C2(mex, bmex2, LIMIT);
+                C3(mex, bmex3, LIMIT);
+                C4(mex, bmex4, LIMIT);
                 //Count instances
                 int count = 0;
                 for (auto it = dict.begin(); it != dict.end(); it++){
