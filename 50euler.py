@@ -10,7 +10,7 @@
 # 
 #     Which prime, below one-million, can be written as the sum of the most consecutive primes?
 
-LIMIT = 1000
+LIMIT = 1000000
 
 def isqrt(x):
     if x < 0:
@@ -25,8 +25,6 @@ def isqrt(x):
         if y >= x:
             return x
         x = y
-
-
 def isPrime(n):
     return all(n%d!=0 for d in xrange(2,isqrt(n)+1))
 
@@ -36,7 +34,8 @@ ans = []
 for i in range(len(primes)):
     for j in range(i+1,len(primes)+1):
         c = primes[i:j]
-        if isPrime(sum(c)) and len(c) > len(ans) and sum(c) <= LIMIT:
+        if sum(c) > LIMIT: break
+        if isPrime(sum(c)) and len(c) > len(ans):
             ans = c
 
 print str(sum(ans))#+" = "+' + '.join([str(x) for x in ans])
