@@ -31,3 +31,5 @@ s = C3(mex, bmex3, LIMIT, s)
 s = C4(mex, bmex4, LIMIT, s)
 
 print "There are " + str(len(s)) + " such numbers that do not exceed " + str(LIMIT) + ".\n"
+
+
